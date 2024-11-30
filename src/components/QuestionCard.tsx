@@ -8,6 +8,10 @@ type QuestionCard = {
 };
 const QuestionCard = ({ question }: QuestionCard) => {
 	const selectedOption = question.options[1];
+
+	const onOptionSelected = (option: string) => {
+		console.warn("hello ");
+	};
 	return (
 		<View style={styles.questionCard}>
 			<Text style={styles.question}>{question.title}</Text>
@@ -16,18 +20,22 @@ const QuestionCard = ({ question }: QuestionCard) => {
 				<Options
 					option={question.options[0]}
 					isSelected={selectedOption === question.options[0]}
+					onPress={() => onOptionSelected(question.options[0])}
 				/>
 				<Options
 					option={question.options[1]}
 					isSelected={selectedOption === question.options[1]}
+					onPress={() => onOptionSelected(question.options[1])}
 				/>
 				<Options
 					option={question.options[2]}
 					isSelected={selectedOption === question.options[2]}
+					onPress={() => onOptionSelected(question.options[2])}
 				/>
 				<Options
 					option={question.options[3]}
 					isSelected={selectedOption === question.options[3]}
+					onPress={() => onOptionSelected(question.options[3])}
 				/>
 			</View>
 		</View>

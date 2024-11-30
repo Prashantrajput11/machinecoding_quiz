@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 type Option = {
 	option: string;
 	isSelected?: boolean;
+	onPress: () => void;
 };
-const Options = ({ option, isSelected }: Option) => {
+const Options = ({ option, isSelected, onPress }: Option) => {
 	return (
-		<View
+		<Pressable
+			onPress={onPress}
 			style={[
 				styles.optionContainer,
 				isSelected ? { backgroundColor: isSelected ? "red" : "purple" } : null,
@@ -15,7 +17,7 @@ const Options = ({ option, isSelected }: Option) => {
 			]}
 		>
 			<Text>{option}</Text>
-		</View>
+		</Pressable>
 	);
 };
 

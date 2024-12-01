@@ -12,7 +12,7 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import questions from "../questions";
 
 const QuizScreen = () => {
-	const question = questions[0];
+	const question = questions[3];
 	return (
 		<SafeAreaView style={styles.page}>
 			<View style={styles.container}>

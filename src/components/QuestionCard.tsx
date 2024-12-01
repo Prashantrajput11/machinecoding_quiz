@@ -7,7 +7,7 @@ type QuestionCard = {
 	question: Question;
 };
 const QuestionCard = ({ question }: QuestionCard) => {
-	const selectedOption = question.options[1];
+	const selectedOption = question.options[3];
 
 	const onOptionSelected = (option: string) => {
 		console.warn("hello ");
@@ -17,26 +17,14 @@ const QuestionCard = ({ question }: QuestionCard) => {
 			<Text style={styles.question}>{question.title}</Text>
 
 			<View style={styles.optionContainer}>
-				<Options
-					option={question.options[0]}
-					isSelected={selectedOption === question.options[0]}
-					onPress={() => onOptionSelected(question.options[0])}
-				/>
-				<Options
-					option={question.options[1]}
-					isSelected={selectedOption === question.options[1]}
-					onPress={() => onOptionSelected(question.options[1])}
-				/>
-				<Options
-					option={question.options[2]}
-					isSelected={selectedOption === question.options[2]}
-					onPress={() => onOptionSelected(question.options[2])}
-				/>
-				<Options
-					option={question.options[3]}
-					isSelected={selectedOption === question.options[3]}
-					onPress={() => onOptionSelected(question.options[3])}
-				/>
+				{question.options.map((option) => (
+					<Options
+						key={option}
+						option={option}
+						isSelected={selectedOption === option}
+						onPress={() => onOptionSelected(option)}
+					/>
+				))}
 			</View>
 		</View>
 	);

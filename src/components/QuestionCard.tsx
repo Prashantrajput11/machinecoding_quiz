@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Options from "./Options";
 import { Question } from "../types";
+import Card from "./Card";
 
 type QuestionCard = {
 	question: Question;
@@ -13,9 +14,7 @@ const QuestionCard = ({ question }: QuestionCard) => {
 		console.warn("hello ");
 	};
 	return (
-		<View style={styles.questionCard}>
-			<Text style={styles.question}>{question.title}</Text>
-
+		<Card title={question.title}>
 			<View style={styles.optionContainer}>
 				{question.options.map((option) => (
 					<Options
@@ -26,24 +25,13 @@ const QuestionCard = ({ question }: QuestionCard) => {
 					/>
 				))}
 			</View>
-		</View>
+		</Card>
 	);
 };
 
 export default QuestionCard;
 
 const styles = StyleSheet.create({
-	questionCard: {
-		backgroundColor: "#fff",
-		paddingVertical: 40,
-		paddingHorizontal: 10,
-		boxShadow: "5 4 20 0 rgba(140, 127, 127, 0.5)",
-		borderRadius: 10,
-	},
-	question: {
-		fontSize: 24,
-		fontWeight: "500",
-	},
 	optionContainer: {
 		gap: 20,
 	},

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Options from "./Options";
 import { Question } from "../types";
 import Card from "./Card";
@@ -8,9 +8,13 @@ type QuestionCard = {
 	question: Question;
 };
 const QuestionCard = ({ question }: QuestionCard) => {
-	const selectedOption = question.options[3];
+	const [selectedOption, setSelectedOption] = useState<undefined | string>(
+		undefined
+	);
+	// const selectedOption = question.options[3];
 
 	const onOptionSelected = (option: string) => {
+		setSelectedOption(option);
 		console.warn("hello ");
 	};
 	return (

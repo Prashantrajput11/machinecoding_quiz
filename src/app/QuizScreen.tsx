@@ -6,22 +6,41 @@ import {
 	Text,
 	View,
 } from "react-native";
-import React from "react";
+import React, { useContext, useState } from "react";
 import QuestionCard from "../components/QuestionCard";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import questions from "../questions";
 import Card from "../components/Card";
+import CButton from "../components/CButton";
+import { QuizContext, useQuizContext } from "../providers/QuizProvider";
 
 const QuizScreen = () => {
-	const question = questions[30];
+	// const [currentIndex, setCurrentIndex] = useState(0);
+
+	const { question, currentIndex } = useQuizContext();
+
+	// // derived state
+	// const question = questions[currentIndex];
+
+	const isQuizFinished = currentIndex >= questions.length;
+
+	const handleNext = () => {
+		// if (!isQuizFinished) {
+		// 	setCurrentIndex((prevIndex) => prevIndex + 1);
+		// }
+	};
 	return (
 		<SafeAreaView style={styles.page}>
 			<View style={styles.container}>
-				<View>
-					<Text>Question 1/ 5</Text>
-				</View>
+				{!isQuizFinished && (
+					<View>
+						<Text>
+							Question {currentIndex + 1} / {questions.length}
+						</Text>
+					</View>
+				)}
 
-				{question ? (
+				{!isQuizFinished ? (
 					<View>
 						<QuestionCard question={question} />
 
@@ -29,20 +48,23 @@ const QuizScreen = () => {
 					</View>
 				) : (
 					<Card title="Quiz Finished">
-						<Text style={{ gap: 10 }}>2/5</Text>
+						<Text style={{ gap: 10 }}>{currentIndex}</Text>
 					</Card>
 				)}
 
-				<Pressable style={styles.button}>
-					<Text style={styles.buttonText}>Next </Text>
-
-					<FontAwesome6
-						name="arrow-right-long"
-						size={16}
-						color="white"
-						style={styles.buttonIcon}
-					/>
-				</Pressable>
+				<CButton
+					onPress={handleNext}
+					onLongPress={() => console.log("long pressed")}
+					title="Next"
+					rightIcon={
+						<FontAwesome6
+							name="arrow-right-long"
+							size={16}
+							color="white"
+							// style={styles.buttonIcon}
+						/>
+					}
+				/>
 			</View>
 		</SafeAreaView>
 	);
@@ -64,22 +86,5 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		marginTop: 15,
 		color: "green",
-	},
-	button: {
-		backgroundColor: "#005055",
-		padding: 20,
-		borderRadius: 100,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	buttonText: {
-		color: "#fff",
-		fontWeight: "bold",
-		textAlign: "center",
-		fontSize: 20,
-	},
-	buttonIcon: {
-		position: "absolute",
-		right: 20,
 	},
 });

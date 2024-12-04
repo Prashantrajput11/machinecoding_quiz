@@ -1,22 +1,26 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useQuizContext } from "../providers/QuizProvider";
 
 type Option = {
 	option: string;
-	isSelected?: boolean;
-	onPress: () => void;
 };
-const Options = ({ option, isSelected, onPress }: Option) => {
+
+const Options = ({ option }: Option) => {
+	const { selectedOption, setSelectedOption } = useQuizContext();
+
+	const isSelected = option === selectedOption;
 	return (
 		<Pressable
-			onPress={onPress}
+			onPress={() => setSelectedOption(option)}
 			style={[
 				styles.optionContainer,
-				isSelected ? { backgroundColor: isSelected ? "red" : "purple" } : null,
-				// { backgroundColor: isSelected ? "red" : "purple" },
+				isSelected ? styles.selectedOption : styles.defaultOption,
 			]}
 		>
-			<Text>{option}</Text>
+			<Text style={[styles.optionText, isSelected && styles.selectedText]}>
+				{option}
+			</Text>
 		</Pressable>
 	);
 };
@@ -25,12 +29,27 @@ export default Options;
 
 const styles = StyleSheet.create({
 	optionContainer: {
-		backgroundColor: "yellow",
+		paddingVertical: 14,
+		paddingHorizontal: 16,
+		borderRadius: 25,
+		marginVertical: 8,
 		borderWidth: 2,
 		borderColor: "lightgray",
-		// gap: 10,
-		paddingVertical: 12,
-		paddingHorizontal: 6,
-		borderRadius: 100,
+		alignItems: "center",
+	},
+	defaultOption: {
+		backgroundColor: "white",
+	},
+	selectedOption: {
+		backgroundColor: "red",
+		borderColor: "red",
+	},
+	optionText: {
+		fontSize: 16,
+		fontWeight: "500",
+		color: "black",
+	},
+	selectedText: {
+		color: "white",
 	},
 });
